@@ -241,6 +241,9 @@ SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/rootdir/etc/fstab.default:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.default
 
+# Vendor Security Patch
+VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+
 # Verified Boot
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3

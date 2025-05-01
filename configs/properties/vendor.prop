@@ -188,6 +188,7 @@ persist.vendor.qfp=true
 
 # QSPM
 ro.vendor.qspm.enable=true
+vendor.perf.framepacing.enable=1
 
 # Radio
 persist.dbg.volte_avail_ovr=1

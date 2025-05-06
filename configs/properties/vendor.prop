@@ -196,6 +196,9 @@ sys.vendor.shutdown.waittime=500
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
 
+# Phantom process monitoring
+sys.fflag.override.settings_enable_monitor_phantom_procs=false
+
 # QFP
 persist.vendor.qfp=true
 

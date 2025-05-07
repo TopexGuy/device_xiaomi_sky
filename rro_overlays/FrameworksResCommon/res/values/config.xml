@@ -277,10 +277,14 @@
 
     <!-- The amount to scale fullscreen snapshots for Overview and snapshot starting windows. -->
     <item name="config_highResTaskSnapshotScale" format="float" type="dimen">0.8</item>
+<!-- Flag indicating whether the surfaceflinger has limited
+     alpha compositing functionality in hardware.  If set, the window
+     manager will disable alpha trasformation in animations where not
+     strictly needed. -->
+<bool name="config_sf_limitedAlpha">true</bool>
 
-    <!-- Flag indicating whether the surfaceflinger has limited
-         alpha compositing functionality in hardware.  If set, the window
-         manager will disable alpha trasformation in animations where not
-         strictly needed. -->
-    <bool name="config_sf_limitedAlpha">true</bool>
+<!-- SQLite -->
+<string name="db_default_journal_mode" translatable="false">MEMORY</string>
+<string name="db_default_sync_mode" translatable="false">OFF</string>
+<string name="db_wal_sync_mode" translatable="false">OFF</string>
 </resources>

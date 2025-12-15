@@ -1373,6 +1373,7 @@ vendor/lib64/libssc_default_listener.so
 vendor/lib64/sensors.ssc.so
 vendor/lib64/sensors.touch.so
 vendor/lib64/vendor.qti.hardware.sensorscalibrate@1.0.so
+vendor/lib64/libmisight.so
 
 # Soter
 vendor/app/SoterService/SoterService.apk

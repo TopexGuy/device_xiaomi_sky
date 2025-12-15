@@ -345,6 +345,10 @@ PRODUCT_COPY_FILES += $(foreach sku,sku_hceese sku_hcesim sku_hcesim1 sku_hcesim
 PRODUCT_PACKAGES += \
     android.hardware.sensors-service.xiaomi-multihal
 
+# Shim
+PRODUCT_PACKAGES += \
+	libmisightjson_shim
+
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_ravelin/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_ravelin/android.hardware.sensor.compass.xml \

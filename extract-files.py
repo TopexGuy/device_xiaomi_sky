@@ -112,6 +112,9 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed(
             'libjnigraphics.so', 'libjnigraphics_prebuilt.so'
         ),
+    'vendor/lib64/libmisight.so' : blob_fixup()
+        .add_needed('libjsoncpp_shim.so')
+        .add_needed('libmisightjson_shim.so'),
     'vendor/etc/media_codecs_ravelin.xml': blob_fixup()
         .regex_replace('.+media_codecs_(google_audio|google_c2|google_telephony|vendor_audio).+\n', ''),
     'vendor/etc/qcril_database/upgrade/other/12_version_update_ecc_table.sql': blob_fixup()

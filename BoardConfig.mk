@@ -7,6 +7,9 @@
 # Inherit from the proprietary version
 -include vendor/xiaomi/sky/BoardConfigVendor.mk
 
+# Include Firmware
+-include device/xiaomi/sky/firmware.mk
+
 DEVICE_PATH := device/xiaomi/sky
 
 # A/B

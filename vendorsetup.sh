@@ -115,3 +115,5 @@ done
 
 echo
 echo "========================================"
+
+bash device/xiaomi/sky/prebuilts/tools/merge.sh device/xiaomi/sky/prebuilts/firmware

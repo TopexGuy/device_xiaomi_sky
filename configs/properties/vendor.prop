@@ -182,6 +182,9 @@ debug.hwui.use_hint_manager=true
 debug.hwui.target_cpu_time_percent=30
 debug.sf.enable_adpf_cpu_hint=true
 
+# Kernel Idle Timer
+ro.surface_flinger.support_kernel_idle_timer=true
+
 # Media
 debug.c2.use_dmabufheaps=1
 debug.mdpcomp.logs=0

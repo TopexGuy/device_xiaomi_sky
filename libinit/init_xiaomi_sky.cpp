@@ -186,7 +186,24 @@ void set_dalvik_heap() {
     }
 }
 
+void set_bg_apps_limit() {
+    struct sysinfo sys;
+
+    if (sysinfo(&sys) != 0)
+        return;
+
+    uint64_t total_ram =
+        static_cast<uint64_t>(sys.totalram) * sys.mem_unit;
+
+    if (total_ram >= (6ULL * 1024 * 1024 * 1024))
+        property_override("ro.sys.fw.bg_apps_limit", "28");
+    else
+        property_override("ro.sys.fw.bg_apps_limit", "24");
+}
+
 void vendor_load_properties() {
     search_variant(variants);
+
     set_dalvik_heap();
+    set_bg_apps_limit();
 }

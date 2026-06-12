@@ -489,4 +489,7 @@ PRODUCT_PACKAGES += \
     libnl \
     libwfdaac_vendor
 
-
+# Extra
+$(call inherit-product-if-exists, vendor/extras/prebuilts.mk)
+$(call inherit-product-if-exists, vendor/bcr/bcr.mk)
+$(call inherit-product-if-exists, vendor/signify/keys/keys.mk)

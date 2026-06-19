@@ -15,3 +15,6 @@ persist.vendor.dpm.feature=11
 
 # RIL
 telephony.active_modems.max_count=2
+
+# Blur
+ro.surface_flinger.blur_scale=0.50

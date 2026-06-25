@@ -89,6 +89,7 @@ $(call soong_config_set,libinit,vendor_init_lib,//$(DEVICE_PATH):init_xiaomi_sky
 # Kernel
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x00000000
+TARGET_KERNEL_CLANG_VERSION := r563880c
 
 BOARD_KERNEL_CMDLINE := \
     disable_dma32=on \

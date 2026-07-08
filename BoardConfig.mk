@@ -198,10 +198,7 @@ BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 104857600
 TARGET_BOARD_PLATFORM := parrot
 BOARD_USES_QCOM_HARDWARE := true
 
-# Disable sparse on all filesystem images
-TARGET_USERIMAGES_SPARSE_EROFS_DISABLED := true
-TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
-TARGET_USERIMAGES_SPARSE_F2FS_DISABLED := true
+# Enable sparse on all filesystem images
 
 # Power
 $(call soong_config_set,power_libperfmgr,mode_extension_lib,//$(DEVICE_PATH):libperfmgr-ext-sky)

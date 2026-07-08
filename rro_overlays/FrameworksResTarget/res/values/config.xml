@@ -98,4 +98,7 @@
     <!-- Doze: should the TYPE_PICK_UP_GESTURE sensor be used as a pulse signal. -->
     <bool name="config_dozePulsePickup">true</bool>
 
+    <!-- Sustained Performance Mode: throttle long-running tasks to prevent overheating -->
+    <bool name="config_sustainedPerformanceModeSupported">true</bool>
+
 </resources>

@@ -120,7 +120,8 @@ BOARD_USES_GENERIC_KERNEL_IMAGE := true
 TARGET_KERNEL_SOURCE := kernel/xiaomi/sky
 TARGET_KERNEL_CONFIG := \
     gki_defconfig \
-    vendor/sky_GKI.config
+    vendor/sky_GKI.config \
+    vendor/parrot_GKI.config
 
 BOARD_VENDOR_RAMDISK_FRAGMENTS := dlkm
 BOARD_VENDOR_RAMDISK_FRAGMENT.dlkm.KERNEL_MODULE_DIRS := top

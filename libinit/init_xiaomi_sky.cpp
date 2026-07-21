@@ -210,7 +210,7 @@ void set_swappiness() {
 
     uint64_t total_ram = static_cast<uint64_t>(sys.totalram) * sys.mem_unit;
 
-    if (total_ram >= (6ULL * 1024 * 1024 * 1024)) {
+    if (total_ram >= (5ULL * 1024 * 1024 * 1024)) {
         property_override("ro.vendor.qti.config.swappiness", "60");
     } else {
         property_override("ro.vendor.qti.config.swappiness", "40");

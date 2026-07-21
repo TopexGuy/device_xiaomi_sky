@@ -50,10 +50,12 @@ function configure_zram_parameters() {
 		let zRamSizeMB=4096
 	fi
 
-	# And enable lz4 zram compression for Go targets.
+	# Set zram compression algorithm.
 	low_ram=`getprop ro.config.low_ram`
 	if [ "$low_ram" == "true" ]; then
 		echo lz4 > /sys/block/zram0/comp_algorithm
+	else
+		echo zstd > /sys/block/zram0/comp_algorithm
 	fi
 
 	if [ -f /sys/block/zram0/disksize ]; then
@@ -143,6 +145,13 @@ function configure_memory_parameters() {
 
 # Set Memory parameters.
 configure_memory_parameters
+
+# Set FQ qdisc on all network interfaces for BBR congestion control.
+for iface in /sys/class/net/rmnet* /sys/class/net/lo; do
+	if [ -d "$iface" ]; then
+		tc qdisc replace dev $(basename $iface) root fq 2>/dev/null
+	fi
+done
 
 if [ -f /sys/devices/soc0/soc_id ]; then
 	platformid=`cat /sys/devices/soc0/soc_id`

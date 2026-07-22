@@ -314,8 +314,7 @@ PRODUCT_PACKAGES += \
     init.qcom.sh \
     init.target.rc \
     ueventd.qcom.rc \
-    ueventd-odm.rc \
-    init.recovery.qcom.rc
+    ueventd-odm.rc
 
 # RRO Overlays
 PRODUCT_PACKAGES += \

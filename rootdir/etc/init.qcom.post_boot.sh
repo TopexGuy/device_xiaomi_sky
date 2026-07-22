@@ -819,23 +819,18 @@ else
     fi
 
     # Set allocstall_threshold to 0 for all targets.
-    # Set swappiness to 100 for all targets
     echo 0 > /sys/module/vmpressure/parameters/allocstall_threshold
     # Set mq-deadline as the I/O scheduler for UFS
     for device in /sys/block/sd*; do
         echo "mq-deadline" > "$device/queue/scheduler"
     done
-    echo $(getprop ro.vendor.qti.config.swappiness) > /proc/sys/vm/swappiness
-
-    # Disable wsf for all targets beacause we are using efk.
-    # wsf Range : 1..1000 So set to bare minimum value 1.
-    echo 1 > /proc/sys/vm/watermark_scale_factor
-
-    configure_zram_parameters
-
-    configure_read_ahead_kb_values
 
     enable_swap
+
+    # Memory tuning (swappiness, watermark_scale_factor, ZRAM, read_ahead,
+    # min_free_kbytes, compaction_proactiveness, FQ qdisc, kgsl reclaim)
+    # handled by init.kernel.post_boot.sh to avoid duplicate overrides.
+    /vendor/bin/sh /vendor/bin/init.kernel.post_boot.sh
 fi
 }
 

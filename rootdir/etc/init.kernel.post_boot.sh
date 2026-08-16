@@ -146,7 +146,8 @@ function configure_memory_parameters() {
 # Set Memory parameters.
 configure_memory_parameters
 
-# Set FQ qdisc on all network interfaces for BBR congestion control.
+# Enable BBR congestion control and set FQ qdisc on all network interfaces.
+echo bbr > /proc/sys/net/ipv4/tcp_congestion_control
 for iface in /sys/class/net/rmnet* /sys/class/net/lo; do
 	if [ -d "$iface" ]; then
 		tc qdisc replace dev $(basename $iface) root fq 2>/dev/null

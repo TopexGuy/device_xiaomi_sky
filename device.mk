@@ -25,8 +25,10 @@ $(call inherit-product, hardware/qcom-caf/common/common.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
 TARGET_SUPPORTS_OMX_SERVICE := false
-
 QCV_FAMILY_SKUS := parrot ravelin
+
+# Disable VINTF Kernel Check
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
 # AAPT
 PRODUCT_AAPT_CONFIG := normal

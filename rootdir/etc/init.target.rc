@@ -167,18 +167,18 @@ on boot
     chmod 0664 /proc/touchscreen/proximity_switch
     chmod 0664 /proc/touchscreen/store_data_proximity
 #TouchPad nvt settings for tp_grip_area
-    on property:sys.tp.grip_enable=0
+on property:sys.tp.grip_enable=0
     write /proc/nvt_edge_reject_switch 1
-    on property:sys.tp.grip_enable=90
+on property:sys.tp.grip_enable=90
     write /proc/nvt_edge_reject_switch 3
-    on property:sys.tp.grip_enable=270
+on property:sys.tp.grip_enable=270
     write /proc/nvt_edge_reject_switch 2
 # TouchPad fts settings for tp_grip_area
-    on property:sys.tp.grip_enable=0
+on property:sys.tp.grip_enable=0
     write /sys/devices/platform/soc/a84000.spi/spi_master/spi0/spi0.0/fts_edge_mode 0
-    on property:sys.tp.grip_enable=90
+on property:sys.tp.grip_enable=90
     write /sys/devices/platform/soc/a84000.spi/spi_master/spi0/spi0.0/fts_edge_mode 1
-    on property:sys.tp.grip_enable=270
+on property:sys.tp.grip_enable=270
     write /sys/devices/platform/soc/a84000.spi/spi_master/spi0/spi0.0/fts_edge_mode 2
 
 on property:vendor.display.lcd_density=560
@@ -261,7 +261,8 @@ on property:vold.decrypt=trigger_restart_framework
    start vendor.cnss_diag
 
 # wcnssr enable
-write /sys/class/remoteproc/remoteproc2/recovery enabled
+on boot
+    write /sys/class/remoteproc/remoteproc2/recovery enabled
 # write /sys/bus/msm_subsys/devices/subsys2/restart_level related
 
 service vendor.cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM

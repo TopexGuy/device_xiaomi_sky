@@ -139,11 +139,24 @@ public final class ThermalUtils {
         return state;
     }
 
+    /**
+     * Power profiles and thermal profiles drive the same sconfig node. If the
+     * user picked an explicit power profile, let it own the node — otherwise a
+     * foreground app change would instantly revert the profile's gaming config
+     * (520) back to the thermal default (500).
+     */
+    private boolean powerProfileActive() {
+        return !"DEFAULT".equals(mSharedPrefs.getString(
+                "saved_power_profile", "DEFAULT"));
+    }
+
     protected void setDefaultThermalProfile() {
+        if (powerProfileActive()) return;
         FileUtils.writeLine(THERMAL_SCONFIG, THERMAL_STATE_DEFAULT);
     }
 
     protected void setThermalProfile(String packageName) {
+        if (powerProfileActive()) return;
         String value = getValue();
         String modes[];
         String state = THERMAL_STATE_DEFAULT;

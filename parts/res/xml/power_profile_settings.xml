@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/powerprofile_title">
+
+        <Preference
+            android:key="power_default"
+            android:title="@string/powerprofile_default"
+            android:summary="@string/powerprofile_default_desc"
+            android:icon="@drawable/ic_power_default"
+            android:selectable="true" />
+
+        <Preference
+            android:key="power_schedutil"
+            android:title="@string/powerprofile_schedutil"
+            android:summary="@string/powerprofile_schedutil_desc"
+            android:icon="@drawable/ic_power_balanced"
+            android:selectable="true" />
+
+        <Preference
+            android:key="power_gaming"
+            android:title="@string/powerprofile_gaming"
+            android:summary="@string/powerprofile_gaming_desc"
+            android:icon="@drawable/ic_power_gaming"
+            android:selectable="true" />
+
+        <Preference
+            android:key="power_battery"
+            android:title="@string/powerprofile_battery"
+            android:summary="@string/powerprofile_battery_desc"
+            android:icon="@drawable/ic_power_battery_saver"
+            android:selectable="true" />
+
+        <Preference
+            android:key="power_extreme"
+            android:title="@string/powerprofile_extreme"
+            android:summary="@string/powerprofile_extreme_desc"
+            android:icon="@drawable/ic_power_performance"
+            android:selectable="true" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

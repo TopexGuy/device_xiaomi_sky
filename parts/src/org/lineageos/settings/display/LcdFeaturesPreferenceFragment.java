@@ -22,11 +22,11 @@ import android.os.SystemProperties;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.lineageos.settings.R;
 
-public class LcdFeaturesPreferenceFragment extends PreferenceFragment
+public class LcdFeaturesPreferenceFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener {
 
     public static final String HBM_PROP = "persist.lcd.hbm_mode";
@@ -47,29 +47,33 @@ public class LcdFeaturesPreferenceFragment extends PreferenceFragment
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.lcd_features_settings);
         mHbmPref = (ListPreference) findPreference(KEY_HBM);
-        mHbmPref.setOnPreferenceChangeListener(this);
         mCabcPref = (ListPreference) findPreference(KEY_CABC);
-        mCabcPref.setOnPreferenceChangeListener(this);
+        if (mHbmPref != null) mHbmPref.setOnPreferenceChangeListener(this);
+        if (mCabcPref != null) mCabcPref.setOnPreferenceChangeListener(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mHbmPref.setValue(SystemProperties.get(HBM_PROP, "0"));
-        mHbmPref.setSummary(mHbmPref.getEntry());
-        mCabcPref.setValue(SystemProperties.get(CABC_PROP, "0"));
-        mCabcPref.setSummary(mCabcPref.getEntry());
+        if (mHbmPref != null) {
+            mHbmPref.setValue(SystemProperties.get(HBM_PROP, "0"));
+            mHbmPref.setSummary(mHbmPref.getEntry());
+        }
+        if (mCabcPref != null) {
+            mCabcPref.setValue(SystemProperties.get(CABC_PROP, "0"));
+            mCabcPref.setSummary(mCabcPref.getEntry());
+        }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         final String key = preference.getKey();
 
-        if (key.equals(KEY_HBM)) {
+        if (key.equals(KEY_HBM) && mHbmPref != null) {
             mHbmPref.setValue((String) newValue);
             mHbmPref.setSummary(mHbmPref.getEntry());
             SystemProperties.set(HBM_PROP, (String) newValue);
-        } else if (key.equals(KEY_CABC)) {
+        } else if (key.equals(KEY_CABC) && mCabcPref != null) {
             mCabcPref.setValue((String) newValue);
             mCabcPref.setSummary(mCabcPref.getEntry());
             SystemProperties.set(CABC_PROP, (String) newValue);

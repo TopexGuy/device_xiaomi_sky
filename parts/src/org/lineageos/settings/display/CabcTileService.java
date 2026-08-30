@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2023 Paranoid Android
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.lineageos.settings.display;
 
 import android.content.Context;
@@ -31,7 +15,6 @@ public class CabcTileService extends TileService {
     private Tile tile;
 
     private String[] CabcModes;
-    private String[] CabcValues;
     private int currentCabcMode;
 
     @Override
@@ -39,14 +22,16 @@ public class CabcTileService extends TileService {
         super.onCreate();
         context = getApplicationContext();
         CabcModes = context.getResources().getStringArray(R.array.lcd_cabc_modes);
-        CabcValues = context.getResources().getStringArray(R.array.lcd_cabc_values);
     }
 
     private void updateCurrentCabcMode() {
-        currentCabcMode = Arrays.asList(CabcValues).indexOf(SystemProperties.get(LcdFeaturesPreferenceFragment.CABC_PROP, "0"));
+        int idx = Arrays.asList(getResources().getStringArray(R.array.lcd_cabc_values))
+                .indexOf(SystemProperties.get(LcdFeaturesPreferenceFragment.CABC_PROP, "0"));
+        currentCabcMode = Math.max(0, idx);
     }
 
     private void updateCabcTile() {
+        if (tile == null || CabcModes.length == 0) return;
         tile.setState(currentCabcMode > 0 ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
         tile.setContentDescription(CabcModes[currentCabcMode]);
         tile.setSubtitle(CabcModes[currentCabcMode]);
@@ -65,12 +50,14 @@ public class CabcTileService extends TileService {
     public void onClick() {
         super.onClick();
         updateCurrentCabcMode();
-        if (currentCabcMode == CabcModes.length - 1) {
+        if (currentCabcMode >= CabcModes.length - 1) {
             currentCabcMode = 0;
         } else {
             currentCabcMode++;
         }
-        SystemProperties.set(LcdFeaturesPreferenceFragment.CABC_PROP, CabcValues[currentCabcMode]);
+        String[] values = getResources().getStringArray(R.array.lcd_cabc_values);
+        SystemProperties.set(LcdFeaturesPreferenceFragment.CABC_PROP,
+                values[Math.min(currentCabcMode, values.length - 1)]);
         updateCabcTile();
     }
 }

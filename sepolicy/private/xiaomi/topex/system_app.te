@@ -1,0 +1,2 @@
+# Disable Thermals: ctl.start/ctl.stop for mi_thermald
+set_prop(system_app, ctl_mi_thermald)

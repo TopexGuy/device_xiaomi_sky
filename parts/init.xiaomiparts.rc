@@ -15,6 +15,30 @@ on boot
     chown system system /sys/devices/virtual/display/disp_param/disp_param
     chmod 0660 /sys/devices/virtual/display/disp_param/disp_param
 
+on boot
+    chown system system /sys/devices/virtual/touch/touch_dev/up_threshold
+    chmod 0660 /sys/devices/virtual/touch/touch_dev/up_threshold
+    chown system system /sys/devices/virtual/touch/touch_dev/tolerance
+    chmod 0660 /sys/devices/virtual/touch/touch_dev/tolerance
+
+on boot
+    chown system system /sys/class/power_supply/battery/charge_control_limit
+    chmod 0660 /sys/class/power_supply/battery/charge_control_limit
+    chown system system /sys/class/thermal/thermal_message/sconfig
+    chmod 0660 /sys/class/thermal/thermal_message/sconfig
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
+    chmod 0660 /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq
+    chmod 0660 /sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq
+
 on property:persist.lcd.hbm_mode=0
     write /sys/devices/virtual/display/disp_param/disp_param "0xa0000"
 

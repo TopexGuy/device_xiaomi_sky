@@ -29,7 +29,6 @@ public class HbmTileService extends TileService {
     private Tile tile;
 
     private String[] HbmModes;
-    private String[] HbmValues;
     private int currentHbmMode;
 
     @Override
@@ -37,14 +36,20 @@ public class HbmTileService extends TileService {
         super.onCreate();
         context = getApplicationContext();
         HbmModes = context.getResources().getStringArray(R.array.lcd_hbm_modes);
-        HbmValues = context.getResources().getStringArray(R.array.lcd_hbm_values);
     }
 
     private void updateCurrentHbmMode() {
-        currentHbmMode = SystemProperties.getInt(LcdFeaturesPreferenceFragment.HBM_PROP, 0);
+        int raw = SystemProperties.getInt(LcdFeaturesPreferenceFragment.HBM_PROP, 0);
+        if (HbmModes.length == 0) {
+            currentHbmMode = 0;
+        } else {
+            currentHbmMode = Math.max(0, Math.min(raw, HbmModes.length - 1));
+        }
     }
 
     private void updateHbmTile() {
+        if (tile == null) return;
+        if (HbmModes.length == 0) return;
         tile.setState(currentHbmMode > 0 ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
         tile.setContentDescription(HbmModes[currentHbmMode]);
         tile.setSubtitle(HbmModes[currentHbmMode]);
@@ -62,6 +67,8 @@ public class HbmTileService extends TileService {
     @Override
     public void onClick() {
         super.onClick();
+        tile = getQsTile();
+        if (tile == null) return;
         updateCurrentHbmMode();
         if (currentHbmMode == HbmModes.length - 1) {
             currentHbmMode = 0;

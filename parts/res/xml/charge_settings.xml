@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/charge_tile_title">
+
+        <Preference
+            android:key="charge_mode_ok"
+            android:title="@string/charge_mode_ok"
+            android:summary="@string/charge_mode_ok_desc"
+            android:icon="@drawable/ic_charge_ok"
+            android:selectable="true" />
+
+        <Preference
+            android:key="charge_mode_cool"
+            android:title="@string/charge_mode_cool"
+            android:summary="@string/charge_mode_cool_desc"
+            android:icon="@drawable/ic_charge_cool"
+            android:selectable="true" />
+
+        <Preference
+            android:key="charge_mode_nuke"
+            android:title="@string/charge_mode_nuke"
+            android:summary="@string/charge_mode_nuke_desc"
+            android:icon="@drawable/ic_charge_nuke"
+            android:selectable="true" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

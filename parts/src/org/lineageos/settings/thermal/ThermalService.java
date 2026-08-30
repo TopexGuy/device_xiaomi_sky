@@ -20,7 +20,6 @@ import android.app.ActivityManager;
 import android.app.ActivityTaskManager;
 import android.app.ActivityTaskManager.RootTaskInfo;
 import android.app.IActivityTaskManager;
-import android.app.TaskStackListener;
 import android.app.Service;
 import android.app.TaskStackListener;
 import android.content.BroadcastReceiver;
@@ -29,7 +28,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.util.Log;
 
 public class ThermalService extends Service {
@@ -37,7 +35,7 @@ public class ThermalService extends Service {
     private static final String TAG = "ThermalService";
     private static final boolean DEBUG = false;
 
-    private String mPreviousApp;
+    private volatile String mPreviousApp;
     private ThermalUtils mThermalUtils;
 
     private IActivityTaskManager mActivityTaskManager;
@@ -52,16 +50,16 @@ public class ThermalService extends Service {
 
     @Override
     public void onCreate() {
+        super.onCreate();
         if (DEBUG) Log.d(TAG, "Creating service");
         try {
             mActivityTaskManager = ActivityTaskManager.getService();
             mActivityTaskManager.registerTaskStackListener(mTaskListener);
-        } catch (RemoteException e) {
-            // Do nothing
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to register task stack listener", e);
         }
         mThermalUtils = new ThermalUtils(this);
         registerReceiver();
-        super.onCreate();
     }
 
     @Override
@@ -75,16 +73,32 @@ public class ThermalService extends Service {
         return null;
     }
 
+    @Override
+    public void onDestroy() {
+        try {
+            if (mActivityTaskManager != null) {
+                mActivityTaskManager.unregisterTaskStackListener(mTaskListener);
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to unregister task stack listener", e);
+        }
+        try {
+            unregisterReceiver(mIntentReceiver);
+        } catch (Exception ignored) {}
+        super.onDestroy();
+    }
+
     private void registerReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_SCREEN_ON);
-        this.registerReceiver(mIntentReceiver, filter);
+        this.registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
     }
 
     private final TaskStackListener mTaskListener = new TaskStackListener() {
         @Override
         public void onTaskStackChanged() {
+            if (mActivityTaskManager == null) return;
             try {
                 final RootTaskInfo info = mActivityTaskManager.getFocusedRootTaskInfo();
                 if (info == null || info.topActivity == null) {

@@ -15,6 +15,16 @@ genfscon sysfs /devices/virtual/touch/touch_dev/palm_sensor  u:object_r:vendor_s
 genfscon proc /touchscreen/proximity_switch            u:object_r:proc_proximity_ts:s0
 genfscon proc /touchscreen/store_data_proximity        u:object_r:proc_proximity_ts:s0
 
+# Touch Strength
+genfscon sysfs /devices/virtual/touch/touch_dev/up_threshold  u:object_r:vendor_sysfs_tsconfig:s0
+genfscon sysfs /devices/virtual/touch/touch_dev/tolerance  u:object_r:vendor_sysfs_tsconfig:s0
+
+# Charge control
+genfscon sysfs /devices/platform/soc/([a-z0-9.])+/power_supply/battery/charge_control_limit u:object_r:vendor_sysfs_charge_control:s0
+
+# Torch (rear flash)
+genfscon sysfs /class/camera/factory_test_flash/rear_flash  u:object_r:sysfs_torch:s0
+
 # FPS info
 genfscon sysfs /class/drm/card0/sde-crtc-0/measured_fps    u:object_r:vendor_sysfs_graphics:s0
 

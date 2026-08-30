@@ -24,42 +24,54 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/device_settings_app_name"
-        android:persistent="true"
         android:theme="@style/Theme.SubSettingsBase.Expressive"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true">
 
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_title"
+            android:exported="true"
+            android:theme="@style/Theme.SubSettingsBase.Expressive">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".TileEntryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SubSettingsBase.Expressive" />
+
         <receiver android:name=".BootCompletedReceiver" android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
         <service
             android:name=".thermal.ThermalService"
-            android:exported="true"
-            android:permission="ThermalService">
+            android:exported="false">
         </service>
 
         <activity
             android:name=".display.LcdFeaturesPreferenceActivity"
             android:label="@string/lcd_features_title"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.SubSettingsBase">
             <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
             </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.display" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/lcd_features_summary" />
         </activity>
         <service
             android:name=".display.HbmTileService"
@@ -84,28 +96,133 @@
 
         <service
             android:name=".display.LcdFeaturesService"
-            android:exported="true"
-            android:permission="LcdFeaturesService">
+            android:exported="false">
         </service>
 
         <activity
             android:name=".thermal.ThermalActivity"
             android:label="@string/thermal_title"
             android:exported="true"
-            android:theme="@style/Theme.SubSettingsBase_v31">
+            android:theme="@style/Theme.SubSettingsBase_v31" />
+
+        <activity
+            android:name=".touchstrength.TouchStrengthSettingsActivity"
+            android:label="@string/touch_strength_title"
+            android:exported="true"
+            android:theme="@style/Theme.SubSettingsBase">
             <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
             </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.battery" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/thermal_summary" />
-            <meta-data
-                android:name="com.android.settings.order"
-                android:value="2" />
+        </activity>
+        <service
+            android:name=".touchstrength.TouchStrengthTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_touch_sampling_tile"
+            android:label="@string/touch_strength_tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".power.PowerProfileActivity"
+            android:label="@string/powerprofile_title"
+            android:exported="true"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
+            </intent-filter>
+        </activity>
+        <service
+            android:name=".power.PowerProfileTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_power_default"
+            android:label="@string/powerprofile_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".charge.ChargeActivity"
+            android:label="@string/charge_tile_title"
+            android:exported="true"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
+            </intent-filter>
+        </activity>
+        <service
+            android:name=".charge.ChargeTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_charge_ok"
+            android:label="@string/charge_tile_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".charge.ChargeEnforcementService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="@string/fgs_subtype_charge_control" />
+        </service>
+
+        <activity
+            android:name=".batterymonitor.BatteryMonitorActivity"
+            android:label="@string/bm_title"
+            android:exported="true"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
+            </intent-filter>
         </activity>
 
+        <activity
+            android:name=".other.OtherSettingsActivity"
+            android:label="@string/other_title"
+            android:exported="true"
+            android:theme="@style/Theme.SubSettingsBase" />
+
+        <service
+            android:name=".batterymonitor.BatteryMonitorService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="@string/fgs_subtype_battery_monitor" />
+        </service>
+
+        <service
+            android:name=".batterymonitor.BatteryMonitorTileService"
+            android:exported="true"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:label="@string/bm_tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <!-- Performance Mode Tile Service -->
+        <service
+            android:name=".thermal.PerformanceTileService"
+            android:label="@string/performance_tile_title"
+            android:icon="@drawable/ic_performance_mode"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
     </application>
 </manifest>

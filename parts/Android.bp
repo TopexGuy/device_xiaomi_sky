@@ -6,9 +6,15 @@
 
 android_app {
     name: "XiaomiParts",
+    defaults: [
+        "SettingsLibDefaults",
+    ],
 
     init_rc: ["init.xiaomiparts.rc"],
-    srcs: ["src/**/*.java"],
+    srcs: [
+        "src/**/*.kt",
+        "src/**/*.java"
+    ],
     resource_dirs: ["res"],
     certificate: "platform",
     platform_apis: true,
@@ -16,6 +22,6 @@ android_app {
     privileged: true,
 
     static_libs: [
-        "org.lineageos.settings.resources",
+        "androidx.preference_preference"
     ],
 }

@@ -14,7 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Thermal Profiles -->
     <string name="thermal_title">Thermal Profiles</string>
     <string name="thermal_summary">Adjust per-app thermal profiles for optimum performance</string>
@@ -33,4 +33,139 @@
     <string name="lcd_hbm_tile_title">HBM</string>
     <string name="lcd_cabc_title">CABC Mode</string>
     <string name="lcd_features_info">High Brightness Mode (HBM) increases the maximum brightness of the display to improve visibility under sunlight. Increases power consumption.\n\nCABC (Content Adaptive Backlight Control) adjusts display and backlight brightness based on currently shown content, to reduce power consumption without degradation.</string>
+
+    <!-- App -->
+    <string name="app_title">Topex Tools</string>
+    <string name="device_settings_app_name">Topex Tools</string>
+    <string name="tile_add">Add tile</string>
+    <string name="tile_added">Tile added</string>
+    <string name="tile_not_added">Unable to add tile</string>
+    <string name="tile_already_added">Tile already added</string>
+    <string name="tile_on">On</string>
+    <string name="tile_off">Off</string>
+
+    <!-- CustomSeekBarPreference -->
+    <string name="custom_seekbar_value">Value: <xliff:g id="v">%s</xliff:g></string>
+    <string name="custom_seekbar_default_value">by default</string>
+    <string name="custom_seekbar_default_value_to_set">Default value: <xliff:g id="v">%s</xliff:g>\nLong tap to set</string>
+    <string name="custom_seekbar_default_value_is_set">Default value is set</string>
+
+    <!-- Touch Strength -->
+    <string name="touch_strength_title">Touch Strength</string>
+    <string name="touch_strength_summary">Fine tune touch up threshold and tolerance</string>
+    <string name="touch_strength_enable_title">Increase Touch Strength</string>
+    <string name="touch_strength_enable_summary">Increases touch sensitivity to reduce missed touches</string>
+    <string name="touch_strength_threshold_title">Touch Up Threshold</string>
+    <string name="touch_strength_threshold_summary">Lower values make touches register more easily</string>
+    <string name="touch_strength_tolerance_title">Tolerance</string>
+    <string name="touch_strength_tolerance_summary">Higher values make touches more forgiving of finger jitter</string>
+    <string name="touch_strength_tile_label">Touch Strength</string>
+    <string name="touch_strength_tile_subtitle">Enabled</string>
+    <string name="touch_strength_unavailable">Not available — kernel rebuild required</string>
+
+    <!-- Power Profiles -->
+    <string name="powerprofile_title">Power Profile</string>
+    <string name="powerprofile_default">Default</string>
+    <string name="powerprofile_default_desc">Walt governor, full CPU frequency</string>
+    <string name="powerprofile_schedutil">Balanced</string>
+    <string name="powerprofile_schedutil_desc">schedutil governor, 90% CPU, no battery saver</string>
+    <string name="powerprofile_gaming">Performance</string>
+    <string name="powerprofile_gaming_desc">Performance governor, max CPU, relaxed thermal</string>
+    <string name="powerprofile_battery">Battery Saver</string>
+    <string name="powerprofile_battery_desc">CPU capped at 80%, Android battery saver on</string>
+    <string name="powerprofile_extreme">Ultra Battery</string>
+    <string name="powerprofile_extreme_desc">CPU capped at 50%, powersave governor, extreme saver</string>
+    <string name="powerprofile_unknown">Unknown</string>
+    <string name="powerprofile_summary">Choose a system performance profile</string>
+    <string name="perf_mode_title">Performance Mode</string>
+    <string name="perf_mode_notification">Performance mode active. CPU governor set to performance, thermal throttling relaxed.</string>
+    <string name="gaming_mode_notification">Performance mode active. Tap to open settings.</string>
+    <string name="power_tile_disabled_subtitle">Disabled</string>
+
+    <!-- Charge Control -->
+    <string name="charge_tile_title">Charge Control</string>
+    <string name="charge_summary">Limit charging current to reduce heat and battery wear</string>
+    <string name="charge_mode_ok">Normal Charging</string>
+    <string name="charge_mode_ok_desc">Full speed charging with no limits</string>
+    <string name="charge_mode_cool">Optimized Charging</string>
+    <string name="charge_mode_cool_desc">Balanced charging, reduces heat and extends battery lifespan</string>
+    <string name="charge_mode_nuke">Ultra Battery Protection</string>
+    <string name="charge_mode_nuke_desc">Maximum battery protection, slowest charging speed</string>
+
+    <!-- Battery Monitor -->
+    <string name="bm_title">Battery Monitor</string>
+    <string name="bm_summary">Real-time battery stats</string>
+    <string name="bm_enable_title">Enable Battery Monitor</string>
+    <string name="bm_enable_summary">Show persistent notification with battery stats</string>
+    <string name="bm_tile_label">Battery Monitor</string>
+    <string name="bm_tile_active">Active</string>
+    <string name="bm_tile_inactive">Inactive</string>
+    <string name="bm_notification_channel">Battery Monitor</string>
+    <string name="bm_manage">Manage</string>
+    <string name="bm_reset_drain_title">Reset Drain Rates</string>
+    <string name="bm_reset_drain_summary">Clear active and idle drain averages</string>
+    <string name="bm_reset_drain_dialog">This will reset drain rate tracking. Fresh rates will be calculated from next sample.</string>
+    <string name="bm_reset_all_title">Reset All Data</string>
+    <string name="bm_reset_all_summary">Clear all tracked battery data</string>
+    <string name="bm_reset_all_dialog">This will reset all battery monitor data including drain rates, timestamps, and charge tracking.</string>
+    <string name="bm_reset_done">Reset complete</string>
+
+    <!-- Battery Monitor Dashboard -->
+    <string name="bm_card_now">Now</string>
+    <string name="bm_card_charging">Charging Info</string>
+    <string name="bm_card_discharging">Drain Rates</string>
+    <string name="bm_card_usage">Screen &amp; Sleep</string>
+    <string name="bm_card_system">System</string>
+    <string name="bm_card_settings">Settings</string>
+    <string name="bm_label_voltage">Voltage</string>
+    <string name="bm_label_current">Current</string>
+    <string name="bm_label_temperature">Temperature</string>
+    <string name="bm_label_health">Health</string>
+    <string name="bm_label_charging_speed">Charging Speed</string>
+    <string name="bm_label_power">Power</string>
+    <string name="bm_label_time_to_full">Time to Full</string>
+    <string name="bm_label_active_drain">Active Drain</string>
+    <string name="bm_label_idle_drain">Idle Drain</string>
+    <string name="bm_label_time_remaining">Estimated Remaining</string>
+    <string name="bm_label_screen_on">Screen On</string>
+    <string name="bm_label_screen_off">Screen Off</string>
+    <string name="bm_label_deep_sleep">Deep Sleep</string>
+    <string name="bm_label_awake">Awake</string>
+    <string name="bm_label_free_ram">Free RAM</string>
+    <string name="bm_label_uptime">Uptime</string>
+    <string name="bm_label_update_interval">Update Interval</string>
+    <string name="bm_label_charging_status">Charging</string>
+    <string name="bm_label_discharging_status">Discharging</string>
+    <string name="bm_label_na">--</string>
+    <string name="bm_toggle_current">Show Current &amp; Power</string>
+    <string name="bm_toggle_drain">Show Drain Rates</string>
+    <string name="bm_toggle_temp">Show Temperature</string>
+    <string name="bm_toggle_voltage">Show Voltage</string>
+    <string name="bm_toggle_health">Show Health</string>
+    <string name="bm_toggle_screen">Show Screen &amp; Sleep</string>
+    <string name="bm_toggle_ram">Show RAM</string>
+    <string name="bm_toggle_uptime">Show Uptime</string>
+
+    <!-- Foreground service special-use subtypes -->
+    <string name="fgs_subtype_battery_monitor">Ongoing battery statistics monitoring</string>
+    <string name="fgs_subtype_charge_control">Charge limit enforcement</string>
+
+    <!-- Other -->
+    <string name="other_title">Other</string>
+    <string name="other_summary">Additional kernel tweaks and features</string>
+    <string name="other_section_title">Other</string>
+    <string name="mglru_enable_title">Multi-Gen LRU</string>
+    <string name="mglru_enable_summary">Multi-generational LRU page reclaim for smoother memory management. Applies on boot.</string>
+    <string name="mglru_apply_failed">Could not apply MGLRU setting.</string>
+
+    <!-- Performance Mode -->
+    <string name="performance_tile_title">Disable Thermals</string>
+    <string name="performance_tile_subtitle_on">Throttling off</string>
+    <string name="performance_tile_subtitle_off">Standard cooling</string>
+    <string name="performance_enable_title">Disable Thermals</string>
+    <string name="performance_enable_summary">Disables thermals by stopping thermal management to reduce CPU throttling. Device may run hot. Toggle off to restore.</string>
+    <string name="performance_notification_title">Thermals disabled</string>
+    <string name="performance_notification_text">Thermal throttling is disabled. The device may run hot — turn off Disable Thermals if needed.</string>
+    <string name="performance_apply_failed">Could not apply setting.</string>
+
 </resources>

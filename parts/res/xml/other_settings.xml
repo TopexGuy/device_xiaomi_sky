@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/other_section_title">
+
+        <SwitchPreference
+            android:key="mglru_enable"
+            android:title="@string/mglru_enable_title"
+            android:summary="@string/mglru_enable_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreference
+            android:key="performance_mode_enable"
+            android:title="@string/performance_enable_title"
+            android:summary="@string/performance_enable_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

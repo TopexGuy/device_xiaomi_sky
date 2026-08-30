@@ -33,10 +33,11 @@ public class LcdFeaturesService extends Service {
 
     @Override
     public void onCreate() {
+        super.onCreate();
         if (DEBUG) Log.d(TAG, "Creating service");
         IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(mScreenStateReceiver, screenStateFilter);
+        registerReceiver(mScreenStateReceiver, screenStateFilter, Context.RECEIVER_NOT_EXPORTED);
         lastHBM = SystemProperties.get(LcdFeaturesPreferenceFragment.HBM_PROP, "0");
         lastCABC = SystemProperties.get(LcdFeaturesPreferenceFragment.CABC_PROP, "0");
     }
@@ -50,8 +51,10 @@ public class LcdFeaturesService extends Service {
     @Override
     public void onDestroy() {
         if (DEBUG) Log.d(TAG, "Destroying service");
+        try {
+            this.unregisterReceiver(mScreenStateReceiver);
+        } catch (Exception ignored) {}
         super.onDestroy();
-        this.unregisterReceiver(mScreenStateReceiver);
     }
 
     @Override
@@ -61,7 +64,15 @@ public class LcdFeaturesService extends Service {
 
     private void onDisplayOn() {
         if (DEBUG) Log.d(TAG, "Display on");
+        // init's "on property:" triggers only fire on value change.  If we
+        // re-set the same persist value after the panel reset disp_param on
+        // screen-off, init sees no change and skips the write.  Work around
+        // by clearing first, then restoring -- the intermediate empty string
+        // guarantees init sees a change and re-applies the correct sysfs
+        // write (disp_param).
+        SystemProperties.set(LcdFeaturesPreferenceFragment.HBM_PROP, "");
         SystemProperties.set(LcdFeaturesPreferenceFragment.HBM_PROP, lastHBM);
+        SystemProperties.set(LcdFeaturesPreferenceFragment.CABC_PROP, "");
         SystemProperties.set(LcdFeaturesPreferenceFragment.CABC_PROP, lastCABC);
     }
 

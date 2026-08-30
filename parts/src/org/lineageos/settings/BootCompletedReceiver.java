@@ -18,12 +18,24 @@
 package org.lineageos.settings;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.service.quicksettings.TileService;
 import android.util.Log;
 
+import androidx.preference.PreferenceManager;
+
+import org.lineageos.settings.batterymonitor.BatteryMonitorService;
+import org.lineageos.settings.batterymonitor.BatteryMonitorUtils;
+import org.lineageos.settings.charge.ChargeEnforcementService;
 import org.lineageos.settings.display.LcdFeaturesService;
+import org.lineageos.settings.other.MglruUtils;
+import org.lineageos.settings.power.PowerProfileTileService;
+import org.lineageos.settings.thermal.ThermaldUtils;
 import org.lineageos.settings.thermal.ThermalUtils;
+import org.lineageos.settings.touchstrength.TouchStrengthUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
 
@@ -32,8 +44,36 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        if (DEBUG) Log.d(TAG, "Received boot completed intent");
+        if (DEBUG) Log.d(TAG, "Received boot completed intent: " + intent.getAction());
+        if (Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(intent.getAction())) {
+            return;
+        }
         ThermalUtils.startService(context);
         context.startService(new Intent(context, LcdFeaturesService.class));
+
+        // Restore Touch Strength if it was enabled
+        TouchStrengthUtils.applySavedState(context);
+
+        // Restart charge enforcement if a limiting mode was active
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (prefs.getInt("saved_charge_mode", 0) > 0) {
+            context.startService(new Intent(context, ChargeEnforcementService.class));
+        }
+
+        // Restore MGLRU state if it was enabled
+        MglruUtils.applySavedState(context);
+
+        // Re-apply Performance Mode (stop mi_thermald) if it was on
+        ThermaldUtils.applySavedState(context);
+
+        // Let the power profile tile reconcile the saved profile with the kernel
+        TileService.requestListeningState(context,
+                new ComponentName(context, PowerProfileTileService.class));
+
+        // Start battery monitor if it was enabled
+        if (prefs.getBoolean(BatteryMonitorUtils.PREF_ENABLED, false)) {
+            context.startForegroundService(
+                    new Intent(context, BatteryMonitorService.class));
+        }
     }
 }

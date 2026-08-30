@@ -30,14 +30,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -51,7 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ThermalSettingsFragment extends PreferenceFragment
+public class ThermalSettingsFragment extends PreferenceFragmentCompat
         implements ApplicationsState.Callbacks {
 
     private AllPackagesAdapter mAllPackagesAdapter;
@@ -76,7 +75,6 @@ public class ThermalSettingsFragment extends PreferenceFragment
         mApplicationsState = ApplicationsState.getInstance(getActivity().getApplication());
         mSession = mApplicationsState.newSession(this);
         mSession.onResume();
-        mActivityFilter = new ActivityFilter(getActivity().getPackageManager());
 
         mAllPackagesAdapter = new AllPackagesAdapter(getActivity());
 
@@ -100,16 +98,9 @@ public class ThermalSettingsFragment extends PreferenceFragment
 
     @Override
     public void setDivider(@Nullable final Drawable divider) {
-        RecyclerView list = getListView();
-        if (list == null) {
-            View root = getView();
-            if (root != null) {
-                root.post(() -> setDivider(divider));
-            }
-            return;
-        }
-
-        super.setDivider(divider);
+        // This fragment uses a RecyclerView (thermal_layout.xml) with no
+        // android.R.id.list ListView, so the preference-list divider does not
+        // apply. Do nothing instead of recursively re-posting forever.
     }
 
     @Override
@@ -435,7 +426,13 @@ public class ThermalSettingsFragment extends PreferenceFragment
 
         @Override
         public boolean filterApp(ApplicationsState.AppEntry entry) {
-            boolean show = !mAllPackagesAdapter.mEntries.contains(entry.info.packageName);
+            boolean show = true;
+            for (ApplicationsState.AppEntry e : mAllPackagesAdapter.mEntries) {
+                if (e.info.packageName.equals(entry.info.packageName)) {
+                    show = false;
+                    break;
+                }
+            }
             if (show) {
                 synchronized (mLauncherResolveInfoList) {
                     show = mLauncherResolveInfoList.contains(entry.info.packageName);

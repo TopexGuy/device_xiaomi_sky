@@ -1,0 +1,26 @@
+# Touch strength (kernel sysfs bridge)
+allow system_app vendor_sysfs_tsconfig:dir search;
+allow system_app vendor_sysfs_tsconfig:file rw_file_perms;
+
+# Charge control
+allow system_app vendor_sysfs_charge_control:dir search;
+allow system_app vendor_sysfs_charge_control:file rw_file_perms;
+
+# Multi-Gen LRU (MGLRU) kernel toggle — the node is already labeled
+# sysfs_lru_gen_enabled by the platform policy (system/sepolicy)
+allow system_app sysfs_lru_gen_enabled:file rw_file_perms;
+
+# Battery Monitor sysfs status reads (current_now, charge_full, ...) and
+# charge_control_limit writes land on the battery power_supply tree, which is
+# labeled vendor_sysfs_battery_supply (upstream) on this device. The new
+# vendor_sysfs_charge_control genfscon above rarely matches the i2c bus path,
+# so keep rw here as well.
+allow system_app vendor_sysfs_battery_supply:dir search;
+allow system_app vendor_sysfs_battery_supply:file rw_file_perms;
+
+# Battery Monitor uptime
+allow system_app proc_uptime:file { read open getattr };
+
+# Power Profile CPU control
+allow system_app sysfs_devices_system_cpu:dir search;
+allow system_app sysfs_devices_system_cpu:file rw_file_perms;

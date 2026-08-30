@@ -24,12 +24,21 @@ type vendor_mac_vendor_data_file, data_file_type, file_type, mlstrustedobject;
 # Palm Sensor
 type vendor_sysfs_palm, sysfs_type, fs_type;
 
+# Touch Strength (kernel sysfs bridge)
+type vendor_sysfs_tsconfig, fs_type, sysfs_type;
+
+# Battery charge control
+type vendor_sysfs_charge_control, fs_type, sysfs_type;
+
 # Proximity
 type proc_proximity_ts, proc_type, fs_type;
 
 # Thermal
 type sys_thermal_flash_state, fs_type, sysfs_type;
 type thermal_data_file, data_file_type, file_type;
+
+# Torch
+type sysfs_torch, fs_type, sysfs_type;
 
 # Walt
 type proc_walt, fs_type, proc_type;

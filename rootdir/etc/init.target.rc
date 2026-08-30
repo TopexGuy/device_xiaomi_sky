@@ -124,6 +124,9 @@ on boot
     chmod 0664 /sys/class/thermal/thermal_message/boost
     chown system system /sys/class/thermal/thermal_message/balance_mode
 
+    chown system system /sys/kernel/mm/lru_gen/enabled
+    chmod 0660 /sys/kernel/mm/lru_gen/enabled
+
     chown system system /sys/class/drm/card0-DSI-1/disp_param
     chmod 0664 /sys/class/drm/card0-DSI-1/disp_param
 
@@ -159,13 +162,25 @@ on boot
     chmod 0644 /sys/bus/platform/devices/soc:fpc1020/screen
     chmod 0666  /dev/goodix_fp
 
+# Torch
+    chown system system /sys/class/camera/factory_test_flash/rear_flash
+    chmod 0664 /sys/class/camera/factory_test_flash/rear_flash
+    chown system system /sys/class/qcom-battery/flash_active
+    chmod 0664 /sys/class/qcom-battery/flash_active
+
+
 #For TP
-    chown system system /sys/class/touch/touch_dev/palm_sensor
+    chown system system /sys/devices/virtual/touch/touch_dev/palm_sensor
+    chmod 0660 /sys/devices/virtual/touch/touch_dev/palm_sensor
+    chown system system /sys/devices/virtual/touch/touch_dev/up_threshold
+    chmod 0666 /sys/devices/virtual/touch/touch_dev/up_threshold
+    chown system system /sys/devices/virtual/touch/touch_dev/tolerance
+    chmod 0666 /sys/devices/virtual/touch/touch_dev/tolerance
     chown system system /proc/touchscreen/proximity_switch
     chown system system /proc/touchscreen/store_data_proximity
-    chmod 0664 /sys/class/touch/touch_dev/palm_sensor
     chmod 0664 /proc/touchscreen/proximity_switch
     chmod 0664 /proc/touchscreen/store_data_proximity
+
 #TouchPad nvt settings for tp_grip_area
 on property:sys.tp.grip_enable=0
     write /proc/nvt_edge_reject_switch 1

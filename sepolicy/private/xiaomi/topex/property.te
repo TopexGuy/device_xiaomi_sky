@@ -1,0 +1,6 @@
+# Disable Thermals (parts app): ctl.start/ctl.stop for mi_thermald.
+# Declared in the system_ext private scope as system_property_type — the
+# platform neverallows (private/property.te) forbid app domains from setting
+# vendor-scope / raw property_type props via property_service, but explicitly
+# exempt system_property_type (same pattern as xiaomi/devicesettings).
+type ctl_mi_thermald, property_type, system_property_type;

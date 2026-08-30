@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="launcher_background">#FF1B1B1B</color>
+
+    <color name="card_background">#FF252530</color>
+    <color name="card_header_bg">#FF1E1E2A</color>
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#FFB0B0C0</color>
+    <color name="text_dim">#FF707080</color>
+
+    <color name="charging_green">#FF4CAF50</color>
+    <color name="discharging_blue">#FF42A5F5</color>
+    <color name="warning_yellow">#FFFFC107</color>
+    <color name="critical_red">#FFEF5350</color>
+
+    <color name="accent_charging">#FF66BB6A</color>
+    <color name="accent_discharging">#FF64B5F6</color>
+
+    <color name="battery_circle_bg">#FF333340</color>
+    <color name="battery_circle_charging">#FF4CAF50</color>
+    <color name="battery_circle_discharging">#FF42A5F5</color>
+    <color name="battery_circle_low">#FFFFC107</color>
+    <color name="battery_circle_critical">#FFEF5350</color>
+
+    <color name="stat_label">#FF9090A0</color>
+    <color name="stat_value">#FFFFFFFF</color>
+    <color name="divider">#FF333340</color>
+    <color name="disabled_text_color">#FF707080</color>
+</resources>
